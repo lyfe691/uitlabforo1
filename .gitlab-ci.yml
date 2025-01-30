@@ -1,0 +1,24 @@
+image: docker:latest
+
+services:
+  - docker:dind
+
+variables:
+  DOCKER_TLS_CERTDIR: "/certs"
+
+stages:
+  - build
+
+build-frontend:
+  stage: build
+  script:
+    - cd matey_frontend
+    - docker build -t matey-frontend:latest .
+    - echo "Frontend build successful"
+
+build-backend:
+  stage: build
+  script:
+    - cd matey_backend
+    - docker build -t matey-backend:latest .
+    - echo "Backend build successful" 
